@@ -9,31 +9,25 @@ namespace FluidTYPO3\Flux\ViewHelpers\Field;
  */
 
 use FluidTYPO3\Flux\Form\Field\Radio;
+use TYPO3\CMS\Fluid\Core\Rendering\RenderingContextInterface;
 
 /**
- * Checkbox FlexForm field ViewHelper
+ * Radio FlexForm field ViewHelper
  *
  * @package Flux
  * @subpackage ViewHelpers/Field
  */
-class RadioViewHelper extends AbstractMultiValueFieldViewHelper {
+class RadioViewHelper extends SelectViewHelper {
 
 	/**
-	 * Initialize
-	 * @return void
+	 * @param RenderingContextInterface $renderingContext
+	 * @param array $arguments
+	 * @return Radio
 	 */
-	public function initializeArguments() {
-		parent::initializeArguments();
-		$this->registerArgument('items', 'mixed', 'Items for the radio; array / CSV / Traversable / Query supported', TRUE);
-	}
-
-	/**
-	 * @return Checkbox
-	 */
-	public function getComponent() {
+	public static function getComponent(RenderingContextInterface $renderingContext, array $arguments) {
 		/** @var Radio $component */
-		$component = $this->getPreparedComponent('Radio');
-		$component->setItems($this->arguments['items']);
+		$component = static::getPreparedComponent('Select', $renderingContext, $arguments);
+		$component->setItems($arguments['items']);
 		return $component;
 	}
 
